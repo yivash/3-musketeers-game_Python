@@ -41,35 +41,35 @@ def test_string_to_location():
     #test with correct inputs
 
 def test_location_to_string():
-    assert string_to_location('F3') ==(1)
+    assert string_to_location((1,1)) ==1
     # Replace with tests
 
 def test_at():
-    assert at(0,1)==1 
+    assert at((0,1))==1 
     # Replace with tests
 
 def test_all_locations():
-    assert all_locations([])==True
+    assert all_locations()==[]
     # Replace with tests
 
 def test_adjacent_location():
-    assert adjacent_location((1,2),"sr")==True
+    assert adjacent_location((1,2),"L")==()
     # Replace with tests
     
 def test_is_legal_move_by_musketeer():
-    assert is_legal_move_by_musketeer()==True
+    assert is_legal_move_by_musketeer((1,2),"L")==True
     # Replace with tests
     
 def test_is_legal_move_by_enemy():
-    assert is_legal_move_by_enemy()==True
+    assert is_legal_move_by_enemy((1,2),"L")==True
     # Replace with tests
 
 def test_is_legal_move():
-    assert is_legal_move()==True
+    assert is_legal_move((1,2),"L")==True
     # Replace with tests
 
 def test_can_move_piece_at():
-    assert can_move_piece_at()==True
+    assert can_move_piece_at((1,1))==True
     # Replace with tests
 
 def test_has_some_legal_move_somewhere():
@@ -80,27 +80,28 @@ def test_has_some_legal_move_somewhere():
     # with at least one additional board
 
 def test_possible_moves_from():
-    assert possible_moves_from()==True
+    assert possible_moves_from((1,1))==True
     # Replace with tests
 
 def test_is_legal_location():
-    assert is_legal_location()==True
+    assert is_legal_location((1,1))==True
     # Replace with tests
 
 def test_is_within_board():
-    assert is_within_board()==True
+    assert is_within_board(1,1)==True
     # Replace with tests
 
 def test_all_possible_moves_for():
-    assert all_possible_moves_for()==True
+    assert all_possible_moves_for('R')==[]
     # Replace with tests
     
 def test_make_move():
-    assert make_move()==True
+    assert make_move((1,1),'M')==True
     # Replace with tests
     
 def test_choose_computer_move():
-    assert choose_computer_move()==True
+    assert choose_computer_move('M')==()
+    assert choose_computer_move('R')==()
     # Replace with tests; should work for both 'M' and 'R'
 
 def test_is_enemy_win():

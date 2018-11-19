@@ -36,16 +36,17 @@ def test_get_board():
 def test_string_to_location():
     with pytest.raises(ValueError):
         string_to_location('X3')
-    assert string_to_location('A1') == (0,0)
+    assert string_to_location('A1') == (1,1)
     #eventually add at least one more exception test and two more
     #test with correct inputs
 
 def test_location_to_string():
-    assert string_to_location((1,1)) ==1
+    assert location_to_string((1,1)) =='A1'
     # Replace with tests
 
 def test_at():
-    assert at((0,1))==1 
+    set_board(board1)
+    assert at((0,3))==M
     # Replace with tests
 
 def test_all_locations():
@@ -53,7 +54,7 @@ def test_all_locations():
     # Replace with tests
 
 def test_adjacent_location():
-    assert adjacent_location((1,2),"L")==()
+    assert adjacent_location((1,2),"L")==(0,0)
     # Replace with tests
     
 def test_is_legal_move_by_musketeer():
@@ -80,7 +81,7 @@ def test_has_some_legal_move_somewhere():
     # with at least one additional board
 
 def test_possible_moves_from():
-    assert possible_moves_from((1,1))==True
+    assert possible_moves_from((1,1))==[]
     # Replace with tests
 
 def test_is_legal_location():
@@ -92,16 +93,16 @@ def test_is_within_board():
     # Replace with tests
 
 def test_all_possible_moves_for():
-    assert all_possible_moves_for('R')==[]
+    assert all_possible_moves_for('R')==[(0,0)," "]
     # Replace with tests
     
 def test_make_move():
-    assert make_move((1,1),'M')==True
-    # Replace with tests
+    assert make_move((1,1),'M')== None
+    # Return None, but the board should be updated
     
 def test_choose_computer_move():
-    assert choose_computer_move('M')==()
-    assert choose_computer_move('R')==()
+    assert choose_computer_move("M")==((0,0)," ")
+    assert choose_computer_move("R")==((0,0)," ")
     # Replace with tests; should work for both 'M' and 'R'
 
 def test_is_enemy_win():

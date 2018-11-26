@@ -52,26 +52,28 @@ def test_location_to_string():
 def test_at():
     set_board(board1)
     assert at((0,3))==M
-    # Replace with tests
-
+    assert at((2,1))==R
+    assert at((4,4))==_
+    
 def test_all_locations():
-    assert all_locations()==[]
-    # Replace with tests
-
+    assert all_locations()==[[(0, 0), (0, 1), (0, 2), (0, 3), (0, 4)], [(1, 0), (1, 1), (1, 2), (1, 3), (1, 4)], [(2, 0), (2, 1), (2, 2), (2, 3), (2, 4)], [(3, 0), (3, 1), (3, 2), (3, 3), (3, 4)], [(4, 0), (4, 1), (4, 2), (4, 3), (4, 4)]]
+    
 def test_adjacent_location():
-    assert adjacent_location((1,2),"L")==(0,0)
-    # Replace with tests
+    assert adjacent_location((1,2),'left')==(1,1)
+    assert adjacent_location((1,2),'right')==(1,3)
+    assert adjacent_location((1,2),'up')==(0,2)
+    assert adjacent_location((1,2),'down')==(2,2)
     
 def test_is_legal_move_by_musketeer():
-    assert is_legal_move_by_musketeer((1,2),"L")==True
+    assert is_legal_move_by_musketeer((1,2),'left')==True
     # Replace with tests
     
 def test_is_legal_move_by_enemy():
-    assert is_legal_move_by_enemy((1,2),"L")==True
+    assert is_legal_move_by_enemy((1,2),'left')==True
     # Replace with tests
 
 def test_is_legal_move():
-    assert is_legal_move((1,2),"L")==True
+    assert is_legal_move((1,2),'left')==True
     # Replace with tests
 
 def test_can_move_piece_at():

@@ -59,8 +59,7 @@ def location_to_string(location):
             raise ValueError('Incorrect input')
     k = [key for key, value in positions.items() if value == location[0]][0]
     return k+str(location[1]+1)
-    #return 'A1' # Replace with code
-
+    
 def at(location):
     """Returns the contents of the board at the given location.
     You can assume that input will always be in correct range."""
@@ -68,14 +67,29 @@ def at(location):
 
 def all_locations():
     """Returns a list of all 25 locations on the board."""
-    return [] # Replace with code
+    All_locs = list()
+    for i in range(len(board)):
+        All_locs.append([]) 
+        for j in range(len(board[0])):
+            All_locs[i].append((i,j))
+    return All_locs  
 
 def adjacent_location(location, direction):
     """Return the location next to the given one, in the given direction.
        Does not check if the location returned is legal on a 5x5 board.
        You can assume that input will always be in correct range."""
-    (row, column) = location
-    return (0,0) # Replace with code
+    adj_loc=None 
+    if direction=='left':
+        adj_loc=(location[0],location[1]-1)
+    if direction=='right':
+        adj_loc=(location[0],location[1]+1)
+    if direction=='up':
+        adj_loc=(location[0]-1,location[1])
+    if direction=='down':
+        adj_loc=(location[0]+1,location[1])
+    return adj_loc
+    #(row, column) = location
+    #return (0,0) # Replace with code
 
 def is_legal_move_by_musketeer(location, direction):
     """Tests if the Musketeer at the location can move in the direction.

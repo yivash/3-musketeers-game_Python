@@ -42,14 +42,24 @@ def string_to_location(s):
        is outside of the correct range (between 'A' and 'E' for s[0] and
        between '1' and '5' for s[1]
        """
-    return (1,1) # Replace with code
+    positions={'A':0,'B':1,'C':2,'D':3,'E':4}
+    if s[0] not in positions or (int(s[1])-1) not in positions.values():
+        raise ValueError('Incorrect input')
+    location=positions[s[0]], int(s[1])-1
+    return location
 
 def location_to_string(location):
     """Returns the string representation of a location.
     Similarly to the previous function, this function should raise
     ValueError exception if the input is outside of the correct range
     """
-    return 'A1' # Replace with code
+    positions={'A':0,'B':1,'C':2,'D':3,'E':4}
+    for i in location:
+        if i not in positions.values():
+            raise ValueError('Incorrect input')
+    k = [key for key, value in positions.items() if value == location[0]][0]
+    return k+str(location[1]+1)
+    #return 'A1' # Replace with code
 
 def at(location):
     """Returns the contents of the board at the given location.
@@ -238,7 +248,7 @@ def start():
     """Plays the Three Musketeers Game."""
     users_side = choose_users_side()
     board = create_board()
-    print_instructions()
+    print_instructions() 
     print_board()
     while True:
         if has_some_legal_move_somewhere('M'):

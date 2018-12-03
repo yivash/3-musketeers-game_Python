@@ -69,9 +69,8 @@ def all_locations():
     """Returns a list of all 25 locations on the board."""
     All_locs = list()
     for i in range(len(board)):
-        All_locs.append([]) 
         for j in range(len(board[0])):
-            All_locs[i].append((i,j))
+            All_locs.append((i,j))
     return All_locs  
 
 def adjacent_location(location, direction):
@@ -117,29 +116,67 @@ def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
-    return True # Replace with code
-
+    if at(location)=='M':
+        if is_legal_move_by_musketeer(location, direction):
+            return True
+        else:
+            return False
+    elif at(location)=='R':
+        if is_legal_move_by_enemy(location, direction):
+            return True
+        else:
+            return False 
+    
 def can_move_piece_at(location):
     """Tests whether the player at the location has at least one move available.
     You can assume that input will always be in correct range.
     You can assume that input will always be in correct range."""
-    return True # Replace with code
-
-
+    directions=['left','right','up','down']
+    legal_moves=0
+    for x in directions:
+        if is_legal_move(location, x)==True:
+            legal_moves+=1
+    if legal_moves==0:
+        return False
+    else:
+        return True
+    
 def has_some_legal_move_somewhere(who):
     """Tests whether a legal move exists for player "who" (which must
     be either 'M' or 'R'). Does not provide any information on where
     the legal move is.
     You can assume that input will always be in correct range."""
-    return True # Replace with code
-
+    if who=='M':
+        legal_moves_m=0
+        for x in all_locations():
+            if at(x)=='M' and can_move_piece_at(x)==True:
+                legal_moves_m+=1
+        if legal_moves_m==0:
+            return False
+        else:
+            return True
+    elif who=='R':
+        legal_moves_r=0
+        for x in all_locations():
+            if at(x)=='R' and can_move_piece_at(x)==True:
+                legal_moves_r+=1
+        if legal_moves_r==0:
+            return False
+        else:
+            return True
+    
 def possible_moves_from(location):
     """Returns a list of directions ('left', etc.) in which it is legal
        for the player at location to move. If there is no player at
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
-    return [] # Replace with code
-
+    directions=['left','right','up','down']
+    legal_dir=list()
+    for x in directions:
+        if is_legal_move(location,x):
+            legal_dir.append(x)
+    return legal_dir
+    
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
     You can assume that input will always be a pair of integers."""

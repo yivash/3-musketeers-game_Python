@@ -15,6 +15,12 @@ board1 =  [ [_, _, _, M, _],
             [_, R, _, _, _],
             [_, _, _, R, _] ]
 
+board2 =  [ [_, _, _, M, _],
+            [_, R, _, M, _],
+            [_, _, M, _, _],
+            [_, _, _, _, _],
+            [_, _, _, _, _] ]
+
 def test_create_board():
     create_board()
     assert at((0,0)) == R
@@ -57,7 +63,7 @@ def test_at():
     assert at((4,4))==_
     
 def test_all_locations():
-    assert all_locations()==[[(0, 0), (0, 1), (0, 2), (0, 3), (0, 4)], [(1, 0), (1, 1), (1, 2), (1, 3), (1, 4)], [(2, 0), (2, 1), (2, 2), (2, 3), (2, 4)], [(3, 0), (3, 1), (3, 2), (3, 3), (3, 4)], [(4, 0), (4, 1), (4, 2), (4, 3), (4, 4)]]
+    assert all_locations()==[(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (3, 0), (3, 1), (3, 2), (3, 3), (3, 4), (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)]
     
 def test_adjacent_location():
     assert adjacent_location((1,2),'left')==(1,1)
@@ -80,25 +86,33 @@ def test_is_legal_move_by_enemy():
     with pytest.raises(ValueError):
         is_legal_move_by_enemy((4,0),'down')
         is_legal_move_by_enemy((2,2),'up')
-    # Replace with tests
-
+    
 def test_is_legal_move():
-    assert is_legal_move((1,2),'left')==True
-    # Replace with tests
-
+    set_board(board1)
+    assert is_legal_move((3,1),'down')==True
+    assert is_legal_move((1,3),'up')==False
+    assert is_legal_move((1,3),'left')==True
+    assert is_legal_move((2,1),'right')==False
+    
 def test_can_move_piece_at():
-    assert can_move_piece_at((1,1))==True
-    # Replace with tests
-
+    assert can_move_piece_at((1,3))==True
+    assert can_move_piece_at((0,3))==False
+    assert can_move_piece_at((4,3))==True
+    
 def test_has_some_legal_move_somewhere():
     set_board(board1)
     assert has_some_legal_move_somewhere('M') == True
     assert has_some_legal_move_somewhere('R') == True
-    # Eventually put at least three additional tests here
-    # with at least one additional board
-
+    set_board(board2)
+    assert has_some_legal_move_somewhere('M') == False
+    assert has_some_legal_move_somewhere('R') == True
+    
 def test_possible_moves_from():
-    assert possible_moves_from((1,1))==[]
+    set_board(board1)
+    assert possible_moves_from((0,0))==[]
+    assert possible_moves_from((1,2))==['left','up']
+    assert possible_moves_from((1,3))==['left','down']
+    assert possible_moves_from((2,3))==['right','down']
     # Replace with tests
 
 def test_is_legal_location():

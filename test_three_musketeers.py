@@ -19,8 +19,9 @@ def test_create_board():
     create_board()
     assert at((0,0)) == R
     assert at((0,4)) == M
-    #eventually add at least two more test cases
-
+    assert at((2,2)) == M
+    assert at((3,1)) == R
+    
 def test_set_board():
     set_board(board1)
     assert at((0,0)) == _
@@ -65,11 +66,20 @@ def test_adjacent_location():
     assert adjacent_location((1,2),'down')==(2,2)
     
 def test_is_legal_move_by_musketeer():
-    assert is_legal_move_by_musketeer((1,2),'left')==True
-    # Replace with tests
-    
+    set_board(board1)
+    assert is_legal_move_by_musketeer((2,2),'left')==True
+    assert is_legal_move_by_musketeer((0,3),'down')==False
+    with pytest.raises(ValueError):
+        is_legal_move_by_musketeer((0,2),'down')
+        is_legal_move_by_musketeer((3,1),'right')
+        
 def test_is_legal_move_by_enemy():
+    set_board(board1)
     assert is_legal_move_by_enemy((1,2),'left')==True
+    assert is_legal_move_by_enemy((2,1),'right')==False
+    with pytest.raises(ValueError):
+        is_legal_move_by_enemy((4,0),'down')
+        is_legal_move_by_enemy((2,2),'up')
     # Replace with tests
 
 def test_is_legal_move():
@@ -93,12 +103,15 @@ def test_possible_moves_from():
 
 def test_is_legal_location():
     assert is_legal_location((1,1))==True
-    # Replace with tests
+    assert is_legal_location((4,0))==True
+    assert is_legal_location((5,1))==False
 
 def test_is_within_board():
-    assert is_within_board(1,1)==True
-    # Replace with tests
-
+    assert is_legal_location(adjacent_location((0,0),'left'))==False
+    assert is_legal_location(adjacent_location((2,2),'up'))==True
+    assert is_legal_location(adjacent_location((3,1),'right'))==True
+    assert is_legal_location(adjacent_location((4,2),'down'))==False
+    
 def test_all_possible_moves_for():
     assert all_possible_moves_for('R')==[(0,0)," "]
     # Replace with tests

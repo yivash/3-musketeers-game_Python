@@ -88,21 +88,31 @@ def adjacent_location(location, direction):
     if direction=='down':
         adj_loc=(location[0]+1,location[1])
     return adj_loc
-    #(row, column) = location
-    #return (0,0) # Replace with code
-
+    
 def is_legal_move_by_musketeer(location, direction):
     """Tests if the Musketeer at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
-    return True # Replace with code
-
+    if at(location)=='M':
+        if is_within_board(location, direction) and at(adjacent_location(location, direction))=='R':
+            return True
+        else:
+            return False
+    else:
+        raise ValueError('Incorrect input')            
+    
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
-    return True # Replace with code
-
+    if at(location)=='R':
+        if is_within_board(location, direction) and at(adjacent_location(location, direction))=='-':
+            return True
+        else:
+            return False
+    else:
+        raise ValueError('Incorrect input') 
+    
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
@@ -133,13 +143,19 @@ def possible_moves_from(location):
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
     You can assume that input will always be a pair of integers."""
-    return True # Replace with code
+    if 0<=location[0]<=4 and 0<=location[1]<=4:
+        return True
+    else:
+        return False
     
 def is_within_board(location, direction):
     """Tests if the move stays within the boundaries of the board.
     You can assume that input will always be in correct range."""
-    return True # Replace with code
-    
+    if is_legal_location(adjacent_location(location, direction)):
+        return True
+    else:
+        return False
+        
 def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
        (location, direction) tuples.

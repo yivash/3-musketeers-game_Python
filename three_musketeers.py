@@ -197,25 +197,79 @@ def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
        (location, direction) tuples.
        You can assume that input will always be in correct range."""
-    return [(0,0)," "] # Replace with code
+    if player=='M':
+        all_loc_m=list()
+        all_moves_m=list()
+        for v in all_locations():
+            if at(v)=='M':
+                all_loc_m.append(v)
+        for i in all_loc_m:
+            for j in possible_moves_from(i):
+                if is_legal_move_by_musketeer(i,j):
+                    all_moves_m.append((i,j))
+        return all_moves_m
 
+    if player=='R':
+        all_loc_r=list()
+        all_moves_r=list()
+        for z in all_locations():
+            if at(z)=='R':
+                all_loc_r.append(z)
+        for k in all_loc_r:
+            for n in possible_moves_from(k):
+                if is_legal_move_by_enemy(k,n):
+                    all_moves_r.append((k,n))
+        return all_moves_r
+                 
 def make_move(location, direction):
     """Moves the piece in location in the indicated direction.
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range."""
-    return None # Replace with code
-
+    global board
+    new_board=list()
+    if at(location)=='M':
+        for i in range(len(board)):
+            new_board.append([])
+            for j in range(len(board[0])):
+                if location==(i,j):
+                    new_board[i].append('-')
+                elif adjacent_location(location, direction)==(i,j):
+                    new_board[i].append('M')
+                else:
+                    new_board[i].append(board[i][j])
+    elif at(location)=='R':
+        for i in range(len(board)):
+            new_board.append([])
+            for j in range(len(board[0])):
+                if location==(i,j):
+                    new_board[i].append('-')
+                elif adjacent_location(location, direction)==(i,j):
+                    new_board[i].append('R')
+                else:
+                    new_board[i].append(board[i][j])
+    board=new_board             
+    
 def choose_computer_move(who):
     """The computer chooses a move for a Musketeer (who = 'M') or an
        enemy (who = 'R') and returns it as the tuple (location, direction),
        where a location is a (row, column) tuple as usual.
        You can assume that input will always be in correct range."""
-    return ((0,0)," ") # Replace with code
-
+    if who=='M':
+        return all_possible_moves_for('M')[0]
+    else:
+        return all_possible_moves_for('R')[0]
+    
 def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""
-    return True # Replace with code
-
+    M_locs=list()
+    for i in all_locations():
+        if at(i)=='M':
+            M_locs.append(i)
+    if M_locs[0][0]==M_locs[1][0]==M_locs[2][0] or M_locs[0][1]==M_locs[1][1]==M_locs[2][1]:
+        return True
+    else:
+        return False
+    
 #---------- Communicating with the user ----------
 #----you do not need to modify code below unless you find a bug
 #----a bug in it before you move to stage 3

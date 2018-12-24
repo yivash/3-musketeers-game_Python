@@ -155,6 +155,8 @@ def test_choose_computer_move():
     set_board(board1)
     assert choose_computer_move('M')==((2,2),'left')
     assert choose_computer_move('R')==((1,2),'left')
+    set_board(board2)
+    assert choose_computer_move('R')==((1,1),'right')
     
 def test_is_enemy_win():
     set_board(board1)

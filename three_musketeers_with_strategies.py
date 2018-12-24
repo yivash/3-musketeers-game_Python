@@ -255,9 +255,9 @@ def choose_computer_move(who):
        where a location is a (row, column) tuple as usual.
        You can assume that input will always be in correct range."""
     if who=='M':
-        return best_move_M() #all_possible_moves_for('M')[0]
+        return best_move_M() 
     else:
-        return all_possible_moves_for('R')[0]
+        return best_move_R()
     
 def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""

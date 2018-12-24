@@ -1,5 +1,5 @@
 import pytest
-from three_musketeers_with_strategies_1 import *
+from three_musketeers_with_strategies import *
 
 left = 'left'
 right = 'right'
@@ -153,7 +153,7 @@ def test_make_move():
     
 def test_choose_computer_move():
     set_board(board1)
-    assert choose_computer_move('M')==((1,3),'left')
+    assert choose_computer_move('M')==((2,2),'left')
     assert choose_computer_move('R')==((1,2),'left')
     
 def test_is_enemy_win():
@@ -168,16 +168,24 @@ def test_M_locations():
     set_board(board3)
     assert M_locations()==[(0,3),(1,3),(4,3)]
 
-def test_sum_distances_M():
+def test_sum_distances():
     set_board(board1)
-    assert sum_distances_M()==4.65
+    assert sum_distances(M_locations())==4.65
     set_board(board3)
-    assert sum_distances_M()==8.0
+    assert sum_distances(M_locations())==8.0
 
-
-
-'''def test_evaluate():
+def centre_of_M(locs_list):
     set_board(board1)
-    assert evaluate((2,2),'right')==+1
-    assert evaluate((1,3),'left')==-1'''
-    
+    assert centre_of_M(M_locations())==(1,2.67)
+    set_board(board3)
+    assert centre_of_M(M_locations())==(1.67,3)
+
+def test_best_move_M():
+    set_board(board1)
+    assert best_move_M()==((2,2),'left')
+
+def test_best_move_R():
+    set_board(board1)
+    assert best_move_R()==((1,2),'left')
+    set_board(board2)
+    assert best_move_R()==((1,1),'right')

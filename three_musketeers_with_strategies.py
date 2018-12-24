@@ -255,7 +255,7 @@ def choose_computer_move(who):
        where a location is a (row, column) tuple as usual.
        You can assume that input will always be in correct range."""
     if who=='M':
-        return all_possible_moves_for('M')[0]
+        return best_move_M() #all_possible_moves_for('M')[0]
     else:
         return all_possible_moves_for('R')[0]
     
@@ -274,27 +274,47 @@ def M_locations():
             all_locs.append(i)
     return all_locs        
 
-def sum_distances_M():
+def sum_distances(locs_list):
     """Returns sum of euclidean distances between positions on board of all Musketeer players."""
     Tot=0
     import math
     for k,l in [(0,1),(0,2),(1,2)]:
-        Tot+=round(math.sqrt((M_locations()[k][0]-M_locations()[l][0])**2+(M_locations()[k][1]-M_locations()[l][1])**2),2)
+        Tot+=round(math.sqrt((locs_list[k][0]-locs_list[l][0])**2+(locs_list[k][1]-locs_list[l][1])**2),2)
     return Tot
 
-#def evaluate(location, direction):
-#    make_move(location, direction)
-    '''Implement 2 score ranks ß for musk/enemies.
-    For musk - use max sum_distances_M.
-    For enemies - implement something'''
+def centre_of_M(locs_list):
+    """Returns position of central point of all Musketeer players."""
+    x,y=0,0
+    for i in locs_list:
+        x+=i[0]
+        y+=i[1]
+    return round(x/3,2),round(y/3,2)
 
-'''def evaluate(location, direction):
-    make_move(location, direction)
-    if is_enemy_win():
-        score=+1
-    else:
-        score=-1
-    return score'''
+def best_move_M():
+    """Returns move for Musketeers, that leads to maximum spread of their players over the board."""
+    max=0
+    best=None
+    locs=M_locations()
+    for i in all_possible_moves_for('M'):
+        for j in range(0,len(locs)):
+            if i[0]==locs[j]:
+                locs[j]=adjacent_location(i[0],i[1])
+                if sum_distances(locs)>max:
+                    max=sum_distances(locs)
+                    best=i
+                    locs=M_locations()
+    return best
+
+def best_move_R():
+    """Returns move for enemies, that allowed them to maneuver into direction where centre of all Musketeer`s position is located."""
+    r=all_possible_moves_for('R')
+    best=r[0]
+    centre=centre_of_M(M_locations())
+    min=abs(centre[0]-adjacent_location(best[0],best[1])[0])+abs(centre[1]-adjacent_location(best[0],best[1])[1])
+    for i in all_possible_moves_for('R'):
+        if abs(centre[0]-adjacent_location(i[0],i[1])[0])+abs(centre[1]-adjacent_location(i[0],i[1])[1])<min:
+            best=i
+    return best
     
 #---------- Communicating with the user ----------
 #----you do not need to modify code below unless you find a bug

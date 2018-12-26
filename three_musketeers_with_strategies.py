@@ -93,10 +93,7 @@ def is_legal_move_by_musketeer(location, direction):
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
     if at(location)=='M':
-        if is_within_board(location, direction) and at(adjacent_location(location, direction))=='R':
-            return True
-        else:
-            return False
+        return is_within_board(location, direction) and at(adjacent_location(location, direction))=='R'
     else:
         raise ValueError('Incorrect input')            
     
@@ -105,27 +102,18 @@ def is_legal_move_by_enemy(location, direction):
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
     if at(location)=='R':
-        if is_within_board(location, direction) and at(adjacent_location(location, direction))=='-':
-            return True
-        else:
-            return False
+        return is_within_board(location, direction) and at(adjacent_location(location, direction))=='-'
     else:
-        raise ValueError('Incorrect input') 
+        raise ValueError('Incorrect input')  
     
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
     if at(location)=='M':
-        if is_legal_move_by_musketeer(location, direction):
-            return True
-        else:
-            return False
+        return is_legal_move_by_musketeer(location, direction)
     elif at(location)=='R':
-        if is_legal_move_by_enemy(location, direction):
-            return True
-        else:
-            return False 
+        return is_legal_move_by_enemy(location, direction)
     
 def can_move_piece_at(location):
     """Tests whether the player at the location has at least one move available.
@@ -136,10 +124,7 @@ def can_move_piece_at(location):
     for x in directions:
         if is_legal_move(location, x)==True:
             legal_moves+=1
-    if legal_moves==0:
-        return False
-    else:
-        return True
+    return legal_moves!=0
     
 def has_some_legal_move_somewhere(who):
     """Tests whether a legal move exists for player "who" (which must
@@ -151,19 +136,13 @@ def has_some_legal_move_somewhere(who):
         for x in all_locations():
             if at(x)=='M' and can_move_piece_at(x)==True:
                 legal_moves_m+=1
-        if legal_moves_m==0:
-            return False
-        else:
-            return True
+        return legal_moves_m!=0
     elif who=='R':
         legal_moves_r=0
         for x in all_locations():
             if at(x)=='R' and can_move_piece_at(x)==True:
                 legal_moves_r+=1
-        if legal_moves_r==0:
-            return False
-        else:
-            return True
+        return legal_moves_r!=0
     
 def possible_moves_from(location):
     """Returns a list of directions ('left', etc.) in which it is legal
@@ -180,18 +159,12 @@ def possible_moves_from(location):
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
     You can assume that input will always be a pair of integers."""
-    if 0<=location[0]<=4 and 0<=location[1]<=4:
-        return True
-    else:
-        return False
+    return 0<=location[0]<=4 and 0<=location[1]<=4
     
 def is_within_board(location, direction):
     """Tests if the move stays within the boundaries of the board.
     You can assume that input will always be in correct range."""
-    if is_legal_location(adjacent_location(location, direction)):
-        return True
-    else:
-        return False
+    return is_legal_location(adjacent_location(location, direction))
         
 def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
@@ -261,10 +234,7 @@ def choose_computer_move(who):
     
 def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""
-    if M_locations()[0][0]==M_locations()[1][0]==M_locations()[2][0] or M_locations()[0][1]==M_locations()[1][1]==M_locations()[2][1]:
-        return True
-    else:
-        return False
+    return M_locations()[0][0]==M_locations()[1][0]==M_locations()[2][0] or M_locations()[0][1]==M_locations()[1][1]==M_locations()[2][1]
 
 def M_locations():
     """Returns list of all locations for Musketeers as (location) tuples."""

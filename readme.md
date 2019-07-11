@@ -1,5 +1,5 @@
 <html>
-    <h2>Three musketeers game </h2>
+    <h2>"Three musketeers" game </h2>
     <p>See the <a href="http://en.wikipedia.org/wiki/Three_Musketeers_%28game%29">Wikipedia
         article</a> for the rules of the game.</p>
     <p>The "board" is represented as a list of five lists; each of these lists

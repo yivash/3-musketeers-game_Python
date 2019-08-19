@@ -2,14 +2,6 @@
     <h2>"Three musketeers" game </h2>
     <p>Find <a href="http://en.wikipedia.org/wiki/Three_Musketeers_%28game%29">Wikipedia
         page</a> with the rules of the game.</p>
-    <p>The "board" is represented as a list of five lists; each of these lists
-      represents a row, and each list contains five elements. The first list
-      represents the first row; the first element in each list represents the
-      first column. The values in the list must each be one of three things: an
-      <code>'M'</code>, representing a Musketeer, an <code>'R'</code>,
-      representing one of Cardinal Richelieu's men; and a <code>'-'</code>,
-      representing an empty space. <code>board</code> is a
-      global variable in this program.</p>
-    <p>Directions are given as one of the four strings <code>'left'</code>, <code>'right'</code>,
-      <code>'up</code>', and <code>'down'</code>.</p>
+    <p>2 versions of code to play “Three musketeers” game - human being against computer.</p>
+    <p>This repository contains 2 Python files for the game – first one “three_musketeers.py” with simple strategy for the computer when it picks up first available direction, and the second one “three_musketeers_with_strategies.py” has more sophisticated strategy which allows computer behaves in a way that enhanced its chances to win the game.</p>
 </html>
